@@ -24,24 +24,6 @@ const APPS = [
     ]
   },
   {
-    id: 'fuelfinderni',
-    short: 'FuelFinder',
-    name: 'FuelFinder NI',
-    accent: '#0D7D5A',
-    url: 'https://fuelfinderni.vercel.app',
-    icon: 'images/icons/fuelfinderni.png',
-    hero: 'images/hero-fuelfinderni.jpg',
-    heroRatio: '1600 / 900',
-    line: 'Live petrol and diesel prices across Northern Ireland, cheapest first.',
-    audio: 'audio/listen-fuel.mp3',
-    body: [
-      'The prices come straight from the <b>official UK Fuel Finder scheme</b>, which stations are now required to report to. So it’s what the pump is actually charging today, not a guess and not somebody’s week-old memory.',
-      'Sort by cheapest, or sort by nearest. Both are one tap.',
-      'The <b>worth-the-drive check</b> does the sum you can’t be bothered doing: it works out whether the cheaper station eight miles away really saves you money once you’ve burned fuel getting there. Quite often it doesn’t — and it will tell you so.',
-      'Petrol, diesel and super unleaded. Free, no account.'
-    ]
-  },
-  {
     id: 'happy-weather',
     short: 'Weather',
     name: 'Happy Weather',
@@ -57,6 +39,24 @@ const APPS = [
       'It nudges you when the sun is on its way, so you can drop what you’re at and go. And it doesn’t take any one forecast on trust — it pulls <b>four separate weather models</b> and takes the middle of them, so one over-confident model can’t wreck your day.',
       'That’s the whole difference. Most weather apps look like somebody set out to make you miserable — rain icons, warnings, alerts, seven grey days in a row — and it’s usually not even true. It rains for twenty minutes and the entire week gets painted grey. Happy Weather counts the very same day the other way round, and you end up going out more.',
       'Pick your town from thirty-three across Northern Ireland — Belfast, Derry, Enniskillen, Newcastle, Portrush, Armagh, Omagh and the rest. Free.'
+    ]
+  },
+  {
+    id: 'fuelfinderni',
+    short: 'FuelFinder',
+    name: 'FuelFinder NI',
+    accent: '#0D7D5A',
+    url: 'https://fuelfinderni.vercel.app',
+    icon: 'images/icons/fuelfinderni.png',
+    hero: 'images/hero-fuelfinderni.jpg',
+    heroRatio: '1600 / 900',
+    line: 'Live petrol and diesel prices across Northern Ireland, cheapest first.',
+    audio: 'audio/listen-fuel.mp3',
+    body: [
+      'The prices come straight from the <b>official UK Fuel Finder scheme</b>, which stations are now required to report to. So it’s what the pump is actually charging today, not a guess and not somebody’s week-old memory.',
+      'Sort by cheapest, or sort by nearest. Both are one tap.',
+      'The <b>worth-the-drive check</b> does the sum you can’t be bothered doing: it works out whether the cheaper station eight miles away really saves you money once you’ve burned fuel getting there. Quite often it doesn’t — and it will tell you so.',
+      'Petrol, diesel and super unleaded. Free, no account.'
     ]
   },
   {
