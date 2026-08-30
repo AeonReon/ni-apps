@@ -23,10 +23,22 @@ panorama. First body paragraph shows; the rest sit behind the drop-down.
 - Poppins for headings, Inter for body (same pairing as daysoutni.com)
 - Gradient-outline on every card, per-card `--accent`
 
+## The quick-pick shelf (on trial)
+
+The row of four App Store-style tiles under the masthead (`<nav id="shelf">` in
+index.html, the shelf renderer in app.js, the `.shelf` / `.pick` block in
+styles.css). Tapping a tile jumps to that app's card — it does NOT open the app,
+because the card is where Open and the install button live and a stranger's
+first tap shouldn't throw them out of the page.
+
+Added 2026-08-30 for the user to look at and decide on. If it goes, delete those
+three blocks and the `short:` fields — nothing else depends on it.
+
 ## Adding an app
 
-1. Add an entry to the `APPS` array at the top of `app.js` (id, name, accent,
-   url, icon, line, audio, body paragraphs). Order in the array = order on page.
+1. Add an entry to the `APPS` array at the top of `app.js` (id, name, short,
+   accent, url, icon, line, audio, body paragraphs). Order in the array = order
+   on page, and `short` is what the quick-pick shelf shows.
 2. Drop a 512px icon at `images/icons/<id>.png` and a hero at
    `images/hero-<id>.jpg` (~1600px wide), then set `heroRatio` to its real
    `width / height`.
