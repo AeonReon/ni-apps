@@ -57,6 +57,33 @@ Needs the local `kokoro-tts` service up (PM2, port 8765) and ffmpeg on PATH.
 The script splits each clip per paragraph and welds a short pause between —
 sending the whole script in one request comes back rushed and clipped.
 
+## The share button and QR (qr.js)
+
+Share in the masthead opens a sheet with a QR of this page, the link in text,
+Copy, and the system share sheet where the phone offers one.
+
+`qr.js` is a from-scratch QR encoder — byte mode, ECC level M, versions 1–10.
+Written rather than pulled in because a QR pointing at a hosted generator leaks
+the address and dies with that host, and this is the thing that has to work
+while the user is standing in front of somebody.
+
+**Verify any change to it against an independent decoder.** A broken QR renders
+perfectly and simply doesn't scan; looking at it proves nothing.
+
+    swiftc -O -o /tmp/qrverify/decode scripts/qr-decode.swift
+    cp scripts/qr-verify.mjs ../browser-engine/ && \
+      (cd ../browser-engine && node qr-verify.mjs; rm -f qr-verify.mjs)
+
+56 payloads across all ten versions, decoded by macOS CoreImage. Two real bugs
+were caught this way and would not have been caught any other:
+- the format-information block written on the wrong axis (copy one and copy two
+  use *opposite* orientations — easy to get wrong)
+- the Reed-Solomon generator polynomial indexed lowest-first when the division
+  wants it highest-first
+
+The QR address is read from `location.origin + pathname` with query and hash
+stripped, so pointing the bought domain at this makes the QR follow on its own.
+
 ## Gotchas
 
 - **In-app browsers are the number one reason install instructions "don't
@@ -69,6 +96,11 @@ sending the whole script in one request comes back rushed and clipped.
 - **The app icon is absolutely positioned on `.app-shot`, not in the text flow.**
   It used to be a flex row pulled up with a negative margin, and a title long
   enough to wrap (Conscious Parenting NI) rode up onto the photo.
+- **`[hidden]` needs `display:none !important` here.** `.btn` is `inline-flex`,
+  which beats the bare attribute — the system-share button rendered on desktop
+  where it does nothing. The rule is at the top of styles.css.
+- **The masthead's top padding clears the Share button's row.** At 375px and
+  under the wordmark ran straight into the button. Don't shrink it back.
 - **Never add a `buildCommand`.** Static PWAs on Vercel get stranded at UNKNOWN.
 - The four app URLs are hardcoded in `app.js`. `new-beginnings.vercel.app` is
   someone else's project — Conscious Parenting NI is at
