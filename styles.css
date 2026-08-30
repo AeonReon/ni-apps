@@ -65,7 +65,7 @@ body {
   /* Top padding clears the Share button's own row — at 375px and under, the
      wordmark ran straight into it. Also paints the strip behind the iPhone
      clock on a home-screened PWA. */
-  padding: calc(env(safe-area-inset-top) + 62px) 0 24px;
+  padding: calc(env(safe-area-inset-top) + 70px) 0 24px;
   text-align: center;
   box-shadow: 0 8px 30px rgba(31,94,138,.20);
   position: relative;
