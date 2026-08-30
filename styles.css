@@ -145,9 +145,7 @@ h2 {
   color: var(--deep);
 }
 
-.intro { margin-top: 24px; }
-.intro p { margin-top: 12px; color: var(--ink-soft); }
-.intro .btn-ghost { margin-top: 18px; }
+#app-list > .app:first-child { margin-top: 22px; }
 
 /* ---------- Notices ---------- */
 
@@ -179,41 +177,37 @@ h2 {
 .app-hero {
   display: block;
   width: 100%;
-  /* height:auto is load-bearing — the img's height attribute is a presentational
-     hint that otherwise wins over aspect-ratio and renders the hero 793px tall. */
   height: auto;
-  aspect-ratio: 1983 / 793;
+  /* aspect-ratio is set inline per app — each hero keeps its own proportions
+     so nothing gets cropped to fit a shared shape. */
   object-fit: cover;
   background: var(--sky-deep);
 }
 
-.app-body { padding: 20px; }
+.app-body { padding: 0 20px 20px; }
 
-/* Featured tiles tuck the icon up over the photo */
-.featured .app-body { padding-top: 0; }
-.featured .app-head { margin-top: -42px; }
-
-.app-head {
-  display: flex;
-  align-items: flex-end;
-  gap: 14px;
-  position: relative;
-}
+/* The icon is pinned to the photo rather than sitting in the text flow. It used
+   to be a flex row pulled up with a negative margin, but a title long enough to
+   wrap (Conscious Parenting NI) then rose onto the photo and became unreadable. */
+.app-shot { position: relative; line-height: 0; }
 
 .app-icon {
+  position: absolute;
+  left: 20px;
+  bottom: -30px;
   width: 76px;
   height: 76px;
-  flex: 0 0 76px;
   border-radius: 18px;
   box-shadow: 0 6px 20px rgba(20,50,80,.26);
   background: #fff;
   border: 3px solid #fff;
 }
 .featured .app-icon {
-  width: 92px; height: 92px; flex-basis: 92px; border-radius: 21px;
+  width: 92px; height: 92px; border-radius: 21px; bottom: -34px;
 }
 
-.app-title { padding-bottom: 4px; min-width: 0; }
+.app-title { padding: 14px 0 0 100px; min-height: 62px; }
+.featured .app-title { padding-left: 116px; min-height: 72px; }
 .app-title h3 {
   font-family: Poppins, Inter, sans-serif;
   font-weight: 800;
@@ -360,6 +354,9 @@ details.more > summary::before {
   transition: transform .25s var(--spring);
 }
 details.more[open] > summary::before { transform: rotate(-135deg) translateY(-2px); }
+
+.app-lead { margin-top: 12px; }
+.app-lead p:last-child { margin-bottom: 0; }
 
 .prose p { margin: 0 0 14px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.68; }
 .prose p:last-child { margin-bottom: 4px; }

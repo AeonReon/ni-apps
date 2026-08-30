@@ -1,5 +1,7 @@
 .DS_Store
-Icon?
 node_modules/
 .vercel/
-.vercel
+
+# NOTE: do NOT add the usual macOS `Icon?` pattern here. core.ignorecase is on
+# by default on macOS, so `Icon?` also matches the images/icons/ directory and
+# silently drops every app icon from the deploy.

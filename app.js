@@ -10,7 +10,8 @@ const APPS = [
     accent: '#2F7FB6',
     url: 'https://daysoutni.com',
     icon: 'images/icons/daysoutni.png',
-    hero: 'images/daysout-headline.jpg',
+    hero: 'images/hero-daysoutni.jpg',
+    heroRatio: '1600 / 640',
     featured: true,
     line: 'Every day out in Northern Ireland on one map — over two thousand places, plus what’s actually on this week.',
     audio: 'audio/listen-daysout.mp3',
@@ -27,6 +28,8 @@ const APPS = [
     accent: '#0D7D5A',
     url: 'https://fuelfinderni.vercel.app',
     icon: 'images/icons/fuelfinderni.png',
+    hero: 'images/hero-fuelfinderni.jpg',
+    heroRatio: '1600 / 900',
     line: 'Live petrol and diesel prices across Northern Ireland, cheapest first.',
     audio: 'audio/listen-fuel.mp3',
     body: [
@@ -42,6 +45,8 @@ const APPS = [
     accent: '#3F9CD6',
     url: 'https://happy-weather-aeonreon.vercel.app',
     icon: 'images/icons/happy-weather.png',
+    hero: 'images/hero-happy-weather.jpg',
+    heroRatio: '1600 / 900',
     line: 'The weather app that tells you when the sun is coming.',
     audio: 'audio/listen-weather.mp3',
     body: [
@@ -57,10 +62,11 @@ const APPS = [
     accent: '#E09A12',
     url: 'https://new-beginnings-livid.vercel.app',
     icon: 'images/icons/conscious-parenting.png',
+    hero: 'images/hero-conscious-parenting.jpg',
+    heroRatio: '1600 / 1066',
     line: 'A calmer way through the parenting day, and an honest look at how children actually learn.',
     audio: 'audio/listen-parenting.mp3',
     body: [
-      'This one is for parents who want to think about it properly rather than just get through the day.',
       '<b>Eleven ways of educating a child</b> — Montessori, Charlotte Mason, Steiner, classical, forest school and more — each one set out in its own words, at full strength, so you can see what it genuinely claims before you decide what you make of it. Nothing gets sneered at and nothing gets called out of date. You take what fits your family and leave the rest.',
       '<b>Make It A Game</b> turns the daily flashpoints into something playful — getting dressed, the car seat, the bath, teeth, bedtime. Seventy small games across fourteen situations, with a note on where the pressure needs taken off rather than added.',
       '<b>The Journey</b> does the same for long drives, and <b>Set Up The Space</b> walks you through preparing a room — what you actually need, what you don’t, and what your own part in it is.',
@@ -73,31 +79,40 @@ const APPS = [
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-function tile(app) {
+function tile(app, i) {
+  // Each hero keeps its own proportions rather than being cropped to a shared
+  // ratio — the Days Out panorama is 2.5:1 and would lose half its landmarks.
   const hero = app.hero
-    ? `<img class="app-hero" src="${app.hero}" alt="${esc(app.name)}" width="1983" height="793" fetchpriority="high">`
+    ? `<img class="app-hero" src="${app.hero}" alt="${esc(app.name)}"
+            style="aspect-ratio:${app.heroRatio || '16 / 9'}"
+            ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}>`
     : '';
   const badge = app.featured ? '<span class="badge">Start here</span>' : '';
-  const paras = app.body.map(p => `<p>${p}</p>`).join('');
+
+  // First paragraph always on show; the rest wait behind the drop-down so the
+  // page stays scannable when you're handing the phone to someone.
+  const [lead, ...rest] = app.body;
+  const more = rest.length ? `
+      <details class="more">
+        <summary>More about ${esc(app.name)}</summary>
+        <div class="prose">${rest.map(p => `<p>${p}</p>`).join('')}</div>
+      </details>` : '';
 
   return `
   <section class="app grad-outline${app.featured ? ' featured' : ''}" style="--accent:${app.accent}">
-    ${hero}
+    <div class="app-shot">
+      ${hero}
+      <img class="app-icon" src="${app.icon}" alt="" width="512" height="512">
+    </div>
     <div class="app-body">
-      <div class="app-head">
-        <img class="app-icon" src="${app.icon}" alt="" width="512" height="512" loading="lazy">
-        <div class="app-title">${badge}<h3>${esc(app.name)}</h3></div>
-      </div>
+      <div class="app-title">${badge}<h3>${esc(app.name)}</h3></div>
       <p class="app-line">${app.line}</p>
+      <div class="prose app-lead"><p>${lead}</p></div>
       <div class="audio" data-src="${app.audio}" data-label="Listen — what it does"></div>
       <div class="actions">
         <a class="btn btn-primary" href="${app.url}" target="_blank" rel="noopener">Open the app</a>
         <a class="btn btn-ghost jump" href="#how">Put it on my phone</a>
-      </div>
-      <details class="more">
-        <summary>More about ${esc(app.name)}</summary>
-        <div class="prose">${paras}</div>
-      </details>
+      </div>${more}
     </div>
   </section>`;
 }
