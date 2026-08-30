@@ -659,3 +659,9 @@ body.sheet-open { overflow: hidden; }
   min-height: 56px;
 }
 .contact-address:active { background: #EDF3F9; }
+
+.sheet-note {
+  margin-top: 9px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
