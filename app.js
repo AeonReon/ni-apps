@@ -53,10 +53,10 @@ const APPS = [
     line: 'The weather app that tells you when the sun is coming.',
     audio: 'audio/listen-weather.mp3',
     body: [
-      'Most weather apps look like somebody set out to make you miserable. Rain icons, warnings, alerts, cloud, seven grey days in a row. If you were deliberately designing something to flatten a person’s mood, that is more or less what you would build — and it is usually not even true. It rains for twenty minutes and the whole week gets painted grey.',
-      'Happy Weather turns it the other way round. It shows you <b>the good hours</b>. How much sun you’re getting today and exactly when it lands. How long the dry stretch runs, so you know whether you’ve time to get out and back. And it gives you a nudge when the sun is on its way, so you can drop what you’re at and go.',
-      'It doesn’t take any one forecast on trust, either. It pulls <b>four separate weather models</b> and takes the middle of them, so a single over-confident model can’t wreck your day.',
-      'Pick your town from thirty-three across Northern Ireland — Belfast, Derry, Enniskillen, Newcastle, Portrush, Armagh, Omagh and the rest.'
+      'It leads with the good news. <b>How many hours of sun you’re getting today, and exactly when they land.</b> How long the dry stretch runs, so you know whether you’ve time to get out and back. And <b>Sun Finder</b> shows the sunniest towns in Northern Ireland right now, and where the sun actually is within half an hour’s drive of you — because grey where you are and glorious twenty minutes up the road happens here constantly.',
+      'It nudges you when the sun is on its way, so you can drop what you’re at and go. And it doesn’t take any one forecast on trust — it pulls <b>four separate weather models</b> and takes the middle of them, so one over-confident model can’t wreck your day.',
+      'That’s the whole difference. Most weather apps look like somebody set out to make you miserable — rain icons, warnings, alerts, seven grey days in a row — and it’s usually not even true. It rains for twenty minutes and the entire week gets painted grey. Happy Weather counts the very same day the other way round, and you end up going out more.',
+      'Pick your town from thirty-three across Northern Ireland — Belfast, Derry, Enniskillen, Newcastle, Portrush, Armagh, Omagh and the rest. Free.'
     ]
   },
   {

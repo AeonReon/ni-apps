@@ -48,12 +48,15 @@ CLIPS = {
         "And there's a worth the drive check, which does the sum you can't be bothered doing. It works out whether the cheaper station eight miles away really saves you money once you've burned fuel getting there. Quite often it doesn't, and it will tell you so.",
         "Petrol, diesel and super unleaded. Free, and there's no account.",
     ],
+    # Benefit first, contrast last — the user's steer: lead with the good things,
+    # then explain the difference. Don't open on what other apps get wrong.
     "listen-weather": [
         "Happy Weather is the weather app that tells you when the sun is coming.",
-        "Most weather apps look like somebody set out to make you miserable. Rain icons, warnings, alerts, cloud, seven grey days in a row. If you were deliberately designing something to flatten a person's mood, that's more or less what you'd build. And it's usually not even true. It rains for twenty minutes, and the whole week gets painted grey.",
-        "Happy Weather turns it the other way round. It shows you the good hours. How much sun you're getting today, and exactly when it lands. How long the dry stretch runs, so you know whether you've time to get out and back. And it gives you a nudge when the sun is on its way, so you can drop what you're at and go.",
-        "It doesn't take any one forecast on trust either. It pulls four separate weather models and takes the middle of them, so a single over confident model can't wreck your day.",
-        "Pick your town from thirty three across Northern Ireland. Belfast, Derry, Enniskillen, Newcastle, Portrush, Armagh, Omagh, and the rest.",
+        "It leads with the good news. How many hours of sun you're getting today, and exactly when they land. How long the dry stretch runs, so you know whether you've time to get out and back. And it nudges you when the sun is on its way, so you can drop what you're at and go.",
+        "Sun Finder is the best of it. It shows you the sunniest towns in Northern Ireland right now. And from whatever town you've picked, it tells you where the sun actually is within half an hour's drive. Grey where you are, and glorious twenty minutes up the road, happens here constantly. This is the app that tells you.",
+        "It doesn't take any one forecast on trust either. It pulls four separate weather models and takes the middle of them, so one over confident model can't wreck your day.",
+        "And that's the whole difference. Most weather apps look like somebody set out to make you miserable. Rain icons, warnings, alerts, seven grey days in a row. And it's usually not even true. It rains for twenty minutes, and the entire week gets painted grey. Happy Weather counts the very same day the other way round, and you end up going out more.",
+        "Pick your town from thirty three across Northern Ireland. Belfast, Derry, Enniskillen, Newcastle, Portrush, Armagh, Omagh, and the rest. It's free.",
     ],
     "listen-parenting": [
         "Conscious Parenting NI is for parents who want to think about it properly, rather than just get through the day.",
