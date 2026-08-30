@@ -1,8 +1,8 @@
 /* NI Apps service worker.
    Network-first for the shell so a redeploy is picked up on the next visit;
    cache-first for images and audio, which never change under the same name. */
-const V = 'ni-apps-v1';
-const SHELL = ['./', './index.html', './styles.css', './app.js', './manifest.json'];
+const V = 'ni-apps-v2';
+const SHELL = ['./', './index.html', './styles.css', './app.js', './qr.js', './manifest.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

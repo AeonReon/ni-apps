@@ -29,6 +29,15 @@
 <!-- The sky band runs to the very top of the screen so on a home-screened
      iPhone the strip behind the clock is painted, not a white gap. -->
 <header class="masthead">
+  <button id="share-btn" class="share-btn" type="button" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+      <path d="M12 3v12M12 3l-4 4M12 3l4 4" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <span>Share</span>
+  </button>
   <div class="wrap">
     <h1 class="wordmark"><span class="gold">NI</span> Apps</h1>
     <div class="rule"><span></span><p>Free apps, built here, for here</p><span></span></div>
@@ -103,6 +112,22 @@
 
 </main>
 
+<div id="share-sheet" class="sheet" hidden>
+  <div class="sheet-backdrop" data-close></div>
+  <div class="sheet-card grad-outline" role="dialog" aria-modal="true" aria-labelledby="share-title">
+    <button class="sheet-x" type="button" data-close aria-label="Close">&times;</button>
+    <h2 id="share-title">Point a camera at this</h2>
+    <p class="sheet-sub">Any phone camera will do — no app needed. It opens this page.</p>
+    <div class="qr-wrap" id="qr-wrap"></div>
+    <p class="sheet-url" id="share-url"></p>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="share-native" type="button" hidden>Send the link</button>
+      <button class="btn btn-ghost" id="share-copy" type="button">Copy the link</button>
+    </div>
+  </div>
+</div>
+
+<script src="qr.js?v=1"></script>
 <script src="app.js?v=1"></script>
 </body>
 </html>

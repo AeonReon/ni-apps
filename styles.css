@@ -35,6 +35,11 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Any element given an explicit display (.btn is inline-flex) ignores the
+   plain [hidden] attribute, so a "hidden" button renders and does nothing.
+   This has bitten more than one app here — keep the !important. */
+[hidden] { display: none !important; }
+
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -522,3 +527,111 @@ ol.steps b { color: var(--ink); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Share button + QR sheet ---------- */
+
+.share-btn {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 12px);
+  right: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 15px 0 12px;
+  border: 1.5px solid rgba(255, 255, 255, .55);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .18);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  color: #fff;
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: transform .18s var(--spring), background .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.share-btn:active { transform: scale(.93); background: rgba(255, 255, 255, .30); }
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.sheet[hidden] { display: none; }
+
+.sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 44, 68, .55);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  animation: fade .2s ease;
+}
+
+.sheet-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 24px 22px 22px;
+  text-align: center;
+  --accent: var(--brand);
+  animation: pop .28s var(--spring);
+}
+
+@keyframes fade { from { opacity: 0 } }
+@keyframes pop  { from { opacity: 0; transform: translateY(14px) scale(.96) } }
+
+.sheet-x {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sheet-card h2 { font-size: 20px; padding: 0 26px; }
+.sheet-sub { margin-top: 7px; font-size: 15.5px; color: var(--ink-soft); }
+
+.qr-wrap {
+  margin: 18px auto 0;
+  width: min(268px, 78vw);
+  padding: 12px;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--hair);
+}
+.qr-wrap svg { display: block; width: 100%; height: auto; }
+
+.sheet-url {
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--deep);
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.sheet-actions { display: flex; flex-direction: column; gap: 9px; margin-top: 16px; }
+.sheet-actions .btn { flex: 1 1 100%; }
+
+/* Stops the page scrolling behind the sheet on iOS. */
+body.sheet-open { overflow: hidden; }

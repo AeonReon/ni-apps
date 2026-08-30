@@ -238,3 +238,76 @@ if (inApp) document.getElementById('inapp-warning').hidden = false;
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 }
+
+/* ---------- Share sheet ----------
+   The QR is built from wherever the page is actually being served, so the day
+   the real domain is pointed at this, the code starts pointing there too with
+   nothing to change. Query strings and hashes are dropped so a scan never
+   inherits ?source=pwa or a leftover #app-anchor. */
+
+(function () {
+  const sheet  = document.getElementById('share-sheet');
+  const btn    = document.getElementById('share-btn');
+  if (!sheet || !btn) return;
+
+  const wrap   = document.getElementById('qr-wrap');
+  const urlEl  = document.getElementById('share-url');
+  const copyEl = document.getElementById('share-copy');
+  const natEl  = document.getElementById('share-native');
+
+  const shareUrl = location.origin + location.pathname.replace(/index\.html$/, '');
+  let drawn = false;
+
+  function open() {
+    if (!drawn) {
+      urlEl.textContent = shareUrl.replace(/^https?:\/\//, '');
+      try {
+        wrap.innerHTML = window.QR.svg(shareUrl, { dark: '#16344B', quiet: 2 });
+      } catch (err) {
+        wrap.innerHTML = '<p style="padding:20px;color:#4A6B82">Couldn’t draw the code — ' +
+                         'the link underneath still works.</p>';
+      }
+      drawn = true;
+    }
+    sheet.hidden = false;
+    document.body.classList.add('sheet-open');
+    sheet.querySelector('.sheet-x').focus();
+  }
+
+  function close() {
+    sheet.hidden = true;
+    document.body.classList.remove('sheet-open');
+    btn.focus();
+  }
+
+  btn.addEventListener('click', open);
+  sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) close(); });
+
+  copyEl.addEventListener('click', async () => {
+    const done = () => {
+      const was = copyEl.textContent;
+      copyEl.textContent = 'Copied';
+      setTimeout(() => { copyEl.textContent = was; }, 1600);
+    };
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      done();
+    } catch {
+      // Safari refuses the clipboard API outside some contexts — fall back to
+      // selecting the text so a long-press copy still works.
+      const r = document.createRange();
+      r.selectNodeContents(urlEl);
+      const sel = getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+    }
+  });
+
+  // Pass the URL and nothing else. Adding title/text makes phones paste a wall
+  // of prose with the link buried in it.
+  if (navigator.share) {
+    natEl.hidden = false;
+    natEl.addEventListener('click', () => navigator.share({ url: shareUrl }).catch(() => {}));
+  }
+})();
