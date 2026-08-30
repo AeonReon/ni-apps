@@ -99,8 +99,12 @@ stripped, so pointing the bought domain at this makes the QR follow on its own.
 - **`[hidden]` needs `display:none !important` here.** `.btn` is `inline-flex`,
   which beats the bare attribute — the system-share button rendered on desktop
   where it does nothing. The rule is at the top of styles.css.
-- **The masthead's top padding clears the Share button's row.** At 375px and
-  under the wordmark ran straight into the button. Don't shrink it back.
+- **The Share button copies daysoutni.com's header button exactly** — 40px
+  sun-yellow circle (#F4B82A on #1A2233), QR glyph, `right: 18px`, vertically
+  centred inside `.masthead .headerrow`. It was a labelled pill first and the
+  user found it bulky. It has to live inside `.headerrow`, not the `<header>`,
+  or "centre it vertically" centres it on the safe-area padding instead of on
+  the wordmark.
 - **Never add a `buildCommand`.** Static PWAs on Vercel get stranded at UNKNOWN.
 - The four app URLs are hardcoded in `app.js`. `new-beginnings.vercel.app` is
   someone else's project — Conscious Parenting NI is at

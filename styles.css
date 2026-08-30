@@ -62,10 +62,8 @@ body {
 
 .masthead {
   background: var(--g-sky);
-  /* Top padding clears the Share button's own row — at 375px and under, the
-     wordmark ran straight into it. Also paints the strip behind the iPhone
-     clock on a home-screened PWA. */
-  padding: calc(env(safe-area-inset-top) + 70px) 0 24px;
+  /* Paints the strip behind the iPhone clock on a home-screened PWA */
+  padding: calc(env(safe-area-inset-top) + 26px) 0 24px;
   text-align: center;
   box-shadow: 0 8px 30px rgba(31,94,138,.20);
   position: relative;
@@ -532,30 +530,34 @@ ol.steps b { color: var(--ink); font-weight: 600; }
 
 /* ---------- Share button + QR sheet ---------- */
 
+/* Sun-yellow round icon, lifted straight from the daysoutni.com header — small
+   enough to sit beside the centred wordmark without crowding it, and the QR
+   glyph says what it does better than a share arrow would. */
+.masthead .headerrow { position: relative; }
+
 .share-btn {
   position: absolute;
-  top: calc(env(safe-area-inset-top) + 10px);
-  right: 14px;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
   z-index: 2;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #F4B82A;
+  color: #1A2233;
+  box-shadow: 0 2px 6px rgba(212, 154, 15, .30);
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  min-height: 44px;
-  padding: 0 15px 0 12px;
-  border: 1.5px solid rgba(255, 255, 255, .55);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .18);
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
-  color: #fff;
-  font-family: Poppins, Inter, sans-serif;
-  font-weight: 700;
-  font-size: 14.5px;
+  justify-content: center;
   cursor: pointer;
   transition: transform .18s var(--spring), background .18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.share-btn:active { transform: scale(.93); background: rgba(255, 255, 255, .30); }
+.share-btn svg { display: block; }
+.share-btn:active { transform: translateY(-50%) scale(.94); background: #FFCB4F; }
 
 .sheet {
   position: fixed;

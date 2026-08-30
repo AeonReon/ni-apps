@@ -29,16 +29,16 @@
 <!-- The sky band runs to the very top of the screen so on a home-screened
      iPhone the strip behind the clock is painted, not a white gap. -->
 <header class="masthead">
-  <button id="share-btn" class="share-btn" type="button" aria-haspopup="dialog">
-    <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
-      <path d="M12 3v12M12 3l-4 4M12 3l4 4" fill="none" stroke="currentColor"
-            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6" fill="none" stroke="currentColor"
-            stroke-width="2.2" stroke-linecap="round"/>
-    </svg>
-    <span>Share</span>
-  </button>
-  <div class="wrap">
+  <div class="wrap headerrow">
+    <button id="share-btn" class="share-btn" type="button" aria-haspopup="dialog"
+            title="Share NI Apps — show a QR code" aria-label="Share NI Apps with a QR code">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <path d="M3 3h7v7H3V3zm2 2v3h3V5H5z"/>
+        <path d="M14 3h7v7h-7V3zm2 2v3h3V5h-3z"/>
+        <path d="M3 14h7v7H3v-7zm2 2v3h3v-3H5z"/>
+        <path d="M13 13h3v3h-3zM18 13h3v2h-3zM13 18h2v3h-2zM17 17h4v4h-2v-2h-2z"/>
+      </svg>
+    </button>
     <h1 class="wordmark"><span class="gold">NI</span> Apps</h1>
     <div class="rule"><span></span><p>Free apps, built here, for here</p><span></span></div>
   </div>
