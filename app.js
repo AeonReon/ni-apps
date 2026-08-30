@@ -239,41 +239,20 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 }
 
-/* ---------- Share sheet ----------
-   The QR is built from wherever the page is actually being served, so the day
-   the real domain is pointed at this, the code starts pointing there too with
-   nothing to change. Query strings and hashes are dropped so a scan never
-   inherits ?source=pwa or a leftover #app-anchor. */
+/* ---------- Sheets (share + contact) ---------- */
 
-(function () {
-  const sheet  = document.getElementById('share-sheet');
-  const btn    = document.getElementById('share-btn');
-  if (!sheet || !btn) return;
-
-  const wrap   = document.getElementById('qr-wrap');
-  const urlEl  = document.getElementById('share-url');
-  const copyEl = document.getElementById('share-copy');
-  const natEl  = document.getElementById('share-native');
-
-  const shareUrl = location.origin + location.pathname.replace(/index\.html$/, '');
-  let drawn = false;
+function bindSheet(sheetId, openerId, onFirstOpen) {
+  const sheet = document.getElementById(sheetId);
+  const btn   = document.getElementById(openerId);
+  if (!sheet || !btn) return null;
+  let prepared = false;
 
   function open() {
-    if (!drawn) {
-      urlEl.textContent = shareUrl.replace(/^https?:\/\//, '');
-      try {
-        wrap.innerHTML = window.QR.svg(shareUrl, { dark: '#16344B', quiet: 2 });
-      } catch (err) {
-        wrap.innerHTML = '<p style="padding:20px;color:#4A6B82">Couldn’t draw the code — ' +
-                         'the link underneath still works.</p>';
-      }
-      drawn = true;
-    }
+    if (!prepared) { try { onFirstOpen(sheet); } catch {} prepared = true; }
     sheet.hidden = false;
     document.body.classList.add('sheet-open');
     sheet.querySelector('.sheet-x').focus();
   }
-
   function close() {
     sheet.hidden = true;
     document.body.classList.remove('sheet-open');
@@ -283,31 +262,82 @@ if ('serviceWorker' in navigator) {
   btn.addEventListener('click', open);
   sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) close(); });
+  return { open, close };
+}
 
-  copyEl.addEventListener('click', async () => {
-    const done = () => {
-      const was = copyEl.textContent;
-      copyEl.textContent = 'Copied';
-      setTimeout(() => { copyEl.textContent = was; }, 1600);
-    };
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      done();
-    } catch {
-      // Safari refuses the clipboard API outside some contexts — fall back to
-      // selecting the text so a long-press copy still works.
-      const r = document.createRange();
-      r.selectNodeContents(urlEl);
-      const sel = getSelection();
-      sel.removeAllRanges();
-      sel.addRange(r);
-    }
-  });
+/** Shows "Copied" on a button for a moment, falling back to selecting the text
+    when Safari refuses the clipboard API. */
+async function copyToClipboard(text, button, selectEl) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const was = button.dataset.label || button.textContent;
+    button.dataset.label = was;
+    button.textContent = 'Copied';
+    setTimeout(() => { button.textContent = was; }, 1600);
+  } catch {
+    if (!selectEl) return;
+    const r = document.createRange();
+    r.selectNodeContents(selectEl);
+    const sel = getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+  }
+}
+
+/* ---------- Share ----------
+   The QR is built from wherever the page is actually being served, so the day
+   the real domain is pointed at this, the code starts pointing there too with
+   nothing to change. Query strings and hashes are dropped so a scan never
+   inherits ?source=pwa or a leftover #app-anchor. */
+
+const SHARE_URL = location.origin + location.pathname.replace(/index\.html$/, '');
+
+bindSheet('share-sheet', 'share-btn', () => {
+  const wrap  = document.getElementById('qr-wrap');
+  const urlEl = document.getElementById('share-url');
+  const copy  = document.getElementById('share-copy');
+  const nat   = document.getElementById('share-native');
+
+  urlEl.textContent = SHARE_URL.replace(/^https?:\/\//, '');
+  try {
+    wrap.innerHTML = window.QR.svg(SHARE_URL, { dark: '#16344B', quiet: 2 });
+  } catch {
+    wrap.innerHTML = '<p style="padding:20px;color:#4A6B82">Couldn’t draw the code — ' +
+                     'the link underneath still works.</p>';
+  }
+
+  copy.addEventListener('click', () => copyToClipboard(SHARE_URL, copy, urlEl));
 
   // Pass the URL and nothing else. Adding title/text makes phones paste a wall
   // of prose with the link buried in it.
   if (navigator.share) {
-    natEl.hidden = false;
-    natEl.addEventListener('click', () => navigator.share({ url: shareUrl }).catch(() => {}));
+    nat.hidden = false;
+    nat.addEventListener('click', () => navigator.share({ url: SHARE_URL }).catch(() => {}));
   }
-})();
+});
+
+/* ---------- Contact ----------
+   The address is held as character codes and only assembled when somebody
+   actually opens the sheet, so it is in neither the served HTML nor the DOM of
+   a page that was merely loaded. That stops the ordinary source-scraping
+   harvesters; it is not a claim of secrecy against something that renders the
+   page and clicks. The alias is disposable if it ever does start attracting
+   junk. */
+
+const MAIL_USER = [104, 105];
+const MAIL_HOST = [100, 97, 121, 115, 111, 117, 116, 110, 105, 46, 99, 111, 109];
+const mailAddress = () =>
+  String.fromCharCode.apply(null, MAIL_USER) + String.fromCharCode(64) +
+  String.fromCharCode.apply(null, MAIL_HOST);
+
+bindSheet('contact-sheet', 'contact-btn', () => {
+  const addr   = mailAddress();
+  const link   = document.getElementById('contact-address');
+  const openEl = document.getElementById('contact-open');
+  const copy   = document.getElementById('contact-copy');
+
+  link.textContent = addr;
+  link.href = 'mailto:' + addr;
+  openEl.addEventListener('click', () => { location.href = 'mailto:' + addr; });
+  copy.addEventListener('click', () => copyToClipboard(addr, copy, link));
+});

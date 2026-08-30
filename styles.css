@@ -530,15 +530,12 @@ ol.steps b { color: var(--ink); font-weight: 600; }
 
 /* ---------- Share button + QR sheet ---------- */
 
-/* Sun-yellow round icon, lifted straight from the daysoutni.com header — small
-   enough to sit beside the centred wordmark without crowding it, and the QR
-   glyph says what it does better than a share arrow would. */
-.masthead .headerrow { position: relative; }
-
-.share-btn {
+/* Sun-yellow round icons, lifted straight from the daysoutni.com header —
+   small enough to flank the centred wordmark without crowding it. Contact on
+   the left, share on the right, exactly as Days Out arranges its two. */
+.hdr-btn {
   position: absolute;
   top: 50%;
-  right: 18px;
   transform: translateY(-50%);
   z-index: 2;
   width: 40px;
@@ -556,8 +553,11 @@ ol.steps b { color: var(--ink); font-weight: 600; }
   transition: transform .18s var(--spring), background .18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.share-btn svg { display: block; }
-.share-btn:active { transform: translateY(-50%) scale(.94); background: #FFCB4F; }
+.hdr-btn svg { display: block; }
+.hdr-btn:active { transform: translateY(-50%) scale(.94); background: #FFCB4F; }
+
+.contact-btn { left: 18px; }
+.share-btn   { right: 18px; }
 
 .sheet {
   position: fixed;
@@ -639,3 +639,23 @@ ol.steps b { color: var(--ink); font-weight: 600; }
 
 /* Stops the page scrolling behind the sheet on iOS. */
 body.sheet-open { overflow: hidden; }
+
+/* ---------- Contact sheet ---------- */
+
+.contact-address {
+  display: block;
+  margin: 18px 0 2px;
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 800;
+  font-size: clamp(19px, 5.6vw, 24px);
+  letter-spacing: -.01em;
+  color: var(--deep);
+  text-decoration: none;
+  word-break: break-all;
+  padding: 12px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  border: 2px solid var(--hair);
+  min-height: 56px;
+}
+.contact-address:active { background: #EDF3F9; }

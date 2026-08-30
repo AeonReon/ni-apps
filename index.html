@@ -30,7 +30,15 @@
      iPhone the strip behind the clock is painted, not a white gap. -->
 <header class="masthead">
   <div class="wrap headerrow">
-    <button id="share-btn" class="share-btn" type="button" aria-haspopup="dialog"
+    <button id="contact-btn" class="hdr-btn contact-btn" type="button" aria-haspopup="dialog"
+            title="Get in touch" aria-label="Get in touch">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+        <path d="M3 7l9 6 9-6"/>
+      </svg>
+    </button>
+    <button id="share-btn" class="hdr-btn share-btn" type="button" aria-haspopup="dialog"
             title="Share NI Apps — show a QR code" aria-label="Share NI Apps with a QR code">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
         <path d="M3 3h7v7H3V3zm2 2v3h3V5H5z"/>
@@ -111,6 +119,23 @@
   </footer>
 
 </main>
+
+<!-- The address is not written anywhere in this file, and is not put into the
+     DOM until the sheet is actually opened — see app.js. A scraper that only
+     reads the HTML, or renders the page without tapping, finds nothing. -->
+<div id="contact-sheet" class="sheet" hidden>
+  <div class="sheet-backdrop" data-close></div>
+  <div class="sheet-card grad-outline" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <button class="sheet-x" type="button" data-close aria-label="Close">&times;</button>
+    <h2 id="contact-title">Get in touch</h2>
+    <p class="sheet-sub">A place we’ve missed, something that’s wrong, or just to say hello. It reaches a real person.</p>
+    <a class="contact-address" id="contact-address" href="#">&nbsp;</a>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="contact-open" type="button">Open my email app</button>
+      <button class="btn btn-ghost" id="contact-copy" type="button">Copy the address</button>
+    </div>
+  </div>
+</div>
 
 <div id="share-sheet" class="sheet" hidden>
   <div class="sheet-backdrop" data-close></div>
