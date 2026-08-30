@@ -1,0 +1,42 @@
+# NI Apps
+
+## What it is
+A single page you can hand to someone you've just met. It lists the free apps
+built here for people in Northern Ireland, each with its icon, a headline, a
+short description, a longer drop-down, and a spoken description they can play.
+Underneath, plain instructions for turning any of them into a real app icon on
+an iPhone, an Android phone, or in the Mac Dock.
+
+## Design
+- Palette + fonts are Days Out NI's: sky #5FB1DD -> #3F8FCB, sun #FFCE3D,
+  deep #1F5E8A. Poppins for headings, Inter for body.
+- The hero is the Days Out NI headline image (Northern Irish monuments), which
+  doubles as the first featured app and sets the tone for the whole page.
+- Gradient-outline treatment on every card and tile, per-card accent var.
+
+## Featured apps (order matters — Days Out is the door-opener)
+1. Days Out NI            https://daysoutni.com
+2. FuelFinder NI          https://fuelfinderni.vercel.app
+3. Happy Weather          https://happy-weather-aeonreon.vercel.app
+4. Conscious Parenting NI https://new-beginnings-livid.vercel.app
+
+To add an app: add an entry to the APPS array at the top of app.js, drop a
+512px icon into images/icons/, add its script to scripts/build-audio.py and
+re-run it. Nothing else changes.
+
+## Audio
+Seven clips, all Kokoro voice bf_emma (British, friendly), generated locally.
+Rebuild:  python3 scripts/build-audio.py --force
+Needs the local kokoro-tts service up (PM2 `kokoro-tts`, port 8765) and ffmpeg.
+Decision 2026-08-30: Kokoro permanently — not the user's own voice.
+
+## Deploy
+Vercel (aeonreon team), static, no build command.
+Domain: the user is buying a fresh one (niapps.net was free at build time;
+niapps.co.uk / .com / .uk were taken). Until then it runs on the Vercel URL.
+
+## Gotchas
+- In-app browsers (Facebook, Instagram, Messenger, TikTok) have no
+  "Add to Home Screen". app.js detects them and shows a warning at the top —
+  this is the single biggest reason install instructions "don't work".
+- Never add a buildCommand. Static PWAs on Vercel get stranded at UNKNOWN.

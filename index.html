@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>NI Apps — free apps built here, for here</title>
+<meta name="description" content="Four free apps for Northern Ireland — Days Out NI, FuelFinder NI, Happy Weather and Conscious Parenting NI. One tap each, with simple instructions for putting them on your phone." />
+<meta name="theme-color" content="#3F8FCB" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="NI Apps" />
+
+<meta property="og:title" content="NI Apps — free apps built here, for here" />
+<meta property="og:description" content="Days Out NI, FuelFinder NI, Happy Weather and Conscious Parenting NI. Free, no account, one tap to get them on your phone." />
+<meta property="og:image" content="images/daysout-headline.jpg" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet" />
+
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/png" sizes="512x512" href="images/icons/app-icon-512.png?v=1" />
+<link rel="apple-touch-icon" href="images/icons/app-icon-180.png?v=1" />
+<link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+
+<!-- The sky band runs to the very top of the screen so on a home-screened
+     iPhone the strip behind the clock is painted, not a white gap. -->
+<header class="masthead">
+  <div class="wrap">
+    <h1 class="wordmark"><span class="gold">NI</span> Apps</h1>
+    <div class="rule"><span></span><p>Free apps, built here, for here</p><span></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Shown only inside Facebook / Instagram / Messenger in-app browsers, where
+       "Add to Home Screen" does not exist. Without this people conclude the
+       instructions are wrong rather than that they are in the wrong browser. -->
+  <div id="inapp-warning" class="notice notice-warn" hidden>
+    <strong>You’re in Facebook’s browser, not your real one.</strong>
+    <p>Adding an app to your home screen won’t work in here. Tap the <b>three dots</b> button in the corner and choose <b>Open in Safari</b> or <b>Open in Chrome</b>, then come back to this page.</p>
+  </div>
+
+  <section class="intro card grad-outline" style="--accent:#3F8FCB">
+    <h2>Four apps. All free. No account, no sign-up.</h2>
+    <p>Everything here was built in Northern Ireland for people living in Northern Ireland. Tap <b>Open the app</b> to try one straight away in your browser — nothing to download.</p>
+    <p>If you like it, put it on your home screen and it behaves exactly like a normal app: its own icon, full screen, no address bar. It takes about twenty seconds and <b>the first one is the only one you’ll have to think about</b> — the rest are the same three taps.</p>
+    <a class="btn btn-ghost jump" href="#how">Show me how &darr;</a>
+  </section>
+
+  <div id="app-list"></div>
+
+  <section id="how" class="how card grad-outline" style="--accent:#F0A815">
+    <h2>Putting an app on your phone</h2>
+    <p class="how-sub">Pick your device. We’ve guessed already — change it if we guessed wrong.</p>
+
+    <div class="tabs" role="tablist" id="platform-tabs">
+      <button class="tab" role="tab" data-plat="ios">iPhone</button>
+      <button class="tab" role="tab" data-plat="android">Android</button>
+      <button class="tab" role="tab" data-plat="mac">Mac</button>
+    </div>
+
+    <div class="tabpanel" data-plat="ios" hidden>
+      <p class="panel-note">Same steps on an iPad.</p>
+      <div class="audio" data-src="audio/install-iphone.mp3" data-label="Listen to the iPhone walkthrough"></div>
+      <ol class="steps">
+        <li><b>Make sure you’re in Safari.</b> If you tapped a link inside Facebook, Messenger, Instagram or WhatsApp you’re in their own mini-browser and the next steps won’t be there. Tap the <b>three dots</b>, or the <b>compass</b> icon, in the corner and choose <b>Open in Safari</b>.</li>
+        <li>Open the app you want using its blue <b>Open the app</b> button above.</li>
+        <li>Tap the <b>Share</b> button at the bottom of the screen — the square with an arrow coming out of the top of it. <span class="hint">On an iPad it’s at the top right instead.</span></li>
+        <li>A list slides up. Scroll down it until you see <b>Add to Home Screen</b>. Tap that.</li>
+        <li>Tap <b>Add</b> in the top right corner.</li>
+      </ol>
+      <p class="done">Done. The icon is now on your home screen and opens full screen, just like any other app.</p>
+    </div>
+
+    <div class="tabpanel" data-plat="android" hidden>
+      <div class="audio" data-src="audio/install-android.mp3" data-label="Listen to the Android walkthrough"></div>
+      <ol class="steps">
+        <li><b>Make sure you’re in Chrome.</b> If you came from Facebook or WhatsApp, tap the <b>three dots</b> in the corner and choose <b>Open in Chrome</b>.</li>
+        <li>Open the app you want using its blue <b>Open the app</b> button above.</li>
+        <li>Tap the <b>three dots</b> menu at the top right of Chrome.</li>
+        <li>Tap <b>Install app</b>. <span class="hint">Some phones say <b>Add to Home screen</b> instead — same thing.</span></li>
+        <li>Tap <b>Install</b> to confirm.</li>
+      </ol>
+      <p class="done">Done. The icon lands in your app drawer and usually on your home screen too. Hold and drag it wherever you want it.</p>
+    </div>
+
+    <div class="tabpanel" data-plat="mac" hidden>
+      <div class="audio" data-src="audio/install-mac.mp3" data-label="Listen to the Mac walkthrough"></div>
+      <ol class="steps">
+        <li>Open the app you want using its blue <b>Open the app</b> button above.</li>
+        <li><b>In Safari:</b> go to the <b>File</b> menu at the top of the screen and choose <b>Add to Dock</b>. Give it a name and click <b>Add</b>.</li>
+        <li><b>In Chrome or Edge:</b> click the <b>three dots</b> menu, then <b>Cast, Save and Share</b>, then <b>Install page as app</b>.</li>
+        <li>It now lives in your Applications and Launchpad. Drag it from Launchpad down onto the <b>Dock</b> to keep it there.</li>
+      </ol>
+      <p class="done">Done. It opens in its own window with no browser tabs around it.</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Built in Northern Ireland. Nothing here costs anything, nothing here wants your email address, and none of it tracks you.</p>
+    <p class="ver">NI Apps · v1</p>
+  </footer>
+
+</main>
+
+<script src="app.js?v=1"></script>
+</body>
+</html>

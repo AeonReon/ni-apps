@@ -1,0 +1,451 @@
+/* ============================================================
+   NI Apps — Days Out NI palette + typography
+   Palette source: APPS/TEMPLATES/palette.css
+   Type: Poppins (headings) + Inter (body) — same pairing as daysoutni.com
+   ============================================================ */
+
+:root {
+  /* Core brand */
+  --sky:        #5FB1DD;
+  --sky-deep:   #3F8FCB;
+  --sun:        #FFCE3D;
+  --sun-edge:   #F0A815;
+  --deep:       #1F5E8A;
+  --brand:      #2F7FB6;
+
+  /* Surfaces */
+  --paper:      #F6F8FB;
+  --panel:      #FFFFFF;
+  --ink:        #16344B;
+  --ink-soft:   #4A6B82;
+  --hair:       #E3ECF4;
+
+  --g-sky:  linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+  --g-sun:  linear-gradient(135deg, var(--sun) 0%, var(--sun-edge) 100%);
+
+  --radius:     20px;
+  --radius-sm:  13px;
+  --shadow:     0 10px 34px rgba(31, 94, 138, .10);
+  --shadow-lg:  0 20px 54px rgba(31, 94, 138, .16);
+  --spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Per-card accent — overridden inline on each tile */
+  --accent: var(--brand);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  /* A soft sun low on the page so the paper isn't flat white */
+  background-image:
+    radial-gradient(900px 520px at 80% -6%, rgba(255,206,61,.22), transparent 62%),
+    radial-gradient(760px 480px at 8% 8%, rgba(95,177,221,.20), transparent 60%);
+  background-attachment: fixed;
+  line-height: 1.6;
+  font-size: 17px;
+  padding-bottom: 40px;
+}
+
+.wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 18px; }
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  background: var(--g-sky);
+  /* Paints the strip behind the iPhone clock on a home-screened PWA */
+  padding: calc(env(safe-area-inset-top) + 26px) 0 24px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(31,94,138,.20);
+  position: relative;
+  overflow: hidden;
+}
+.masthead::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: var(--g-sun);
+}
+
+.wordmark {
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 12vw, 62px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: #fff;
+  text-shadow: 0 3px 18px rgba(20,60,90,.30);
+}
+.wordmark .gold { color: var(--sun); }
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.rule span {
+  height: 2px;
+  width: clamp(18px, 8vw, 54px);
+  background: var(--sun);
+  border-radius: 2px;
+  opacity: .9;
+}
+.rule p {
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 600;
+  font-size: clamp(13px, 3.6vw, 16px);
+  color: #fff;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+/* ---------- Gradient outline (workspace house style) ---------- */
+
+.grad-outline { position: relative; }
+.grad-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(150deg,
+    var(--accent) 0%,
+    color-mix(in srgb, var(--accent) 35%, var(--sun)) 48%,
+    color-mix(in srgb, var(--accent) 45%, #ffffff) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  margin: 20px 0;
+}
+
+h2 {
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.28;
+  letter-spacing: -.01em;
+  color: var(--deep);
+}
+
+.intro { margin-top: 24px; }
+.intro p { margin-top: 12px; color: var(--ink-soft); }
+.intro .btn-ghost { margin-top: 18px; }
+
+/* ---------- Notices ---------- */
+
+.notice {
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-top: 20px;
+}
+.notice-warn {
+  background: #FFF6DE;
+  border: 2px solid var(--sun-edge);
+  color: #6A4A05;
+}
+.notice-warn strong { display: block; font-size: 17px; margin-bottom: 6px; }
+.notice-warn p { font-size: 15.5px; line-height: 1.55; }
+
+/* ---------- App tiles ---------- */
+
+.app {
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+.app.featured { box-shadow: var(--shadow-lg); }
+
+.app-hero {
+  display: block;
+  width: 100%;
+  /* height:auto is load-bearing — the img's height attribute is a presentational
+     hint that otherwise wins over aspect-ratio and renders the hero 793px tall. */
+  height: auto;
+  aspect-ratio: 1983 / 793;
+  object-fit: cover;
+  background: var(--sky-deep);
+}
+
+.app-body { padding: 20px; }
+
+/* Featured tiles tuck the icon up over the photo */
+.featured .app-body { padding-top: 0; }
+.featured .app-head { margin-top: -42px; }
+
+.app-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  position: relative;
+}
+
+.app-icon {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(20,50,80,.26);
+  background: #fff;
+  border: 3px solid #fff;
+}
+.featured .app-icon {
+  width: 92px; height: 92px; flex-basis: 92px; border-radius: 21px;
+}
+
+.app-title { padding-bottom: 4px; min-width: 0; }
+.app-title h3 {
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 800;
+  font-size: clamp(22px, 6vw, 27px);
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  color: var(--deep);
+}
+.badge {
+  display: inline-block;
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  background: var(--g-sun);
+  color: #4A3200;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 7px;
+}
+
+.app-line {
+  margin-top: 14px;
+  font-size: 17.5px;
+  line-height: 1.55;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- Buttons ---------- */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn {
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 52px;
+  transition: transform .18s var(--spring), box-shadow .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(.96); }
+
+.btn-primary {
+  flex: 1 1 auto;
+  color: #fff;
+  background: linear-gradient(160deg,
+    color-mix(in srgb, var(--accent) 88%, #ffffff) 0%,
+    var(--accent) 100%);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 34%, transparent);
+}
+
+.actions .btn { flex: 1 1 100%; }
+
+.btn-ghost {
+  background: var(--panel);
+  color: var(--deep);
+  border: 2px solid var(--hair);
+}
+
+.btn-listen {
+  background: #fff;
+  color: var(--deep);
+  border: 2px solid color-mix(in srgb, var(--accent) 40%, #ffffff);
+  font-size: 15.5px;
+  padding: 12px 18px;
+  min-height: 48px;
+}
+.btn-listen .dot {
+  width: 26px; height: 26px; flex: 0 0 26px;
+  border-radius: 50%;
+  background: var(--g-sun);
+  display: grid; place-items: center;
+  font-size: 11px; color: #4A3200;
+}
+
+/* ---------- Audio player ---------- */
+
+.audio { margin-top: 16px; }
+.audio-bar {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--hair);
+  margin-top: 10px;
+  overflow: hidden;
+  display: none;
+}
+.audio.playing .audio-bar { display: block; }
+.audio-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--g-sun);
+  border-radius: 3px;
+}
+
+/* ---------- Disclosure ---------- */
+
+details.more {
+  margin-top: 16px;
+  border-top: 1px solid var(--hair);
+  padding-top: 4px;
+}
+details.more > summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--brand);
+  padding: 13px 0 11px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  -webkit-tap-highlight-color: transparent;
+}
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before {
+  content: '';
+  width: 9px; height: 9px;
+  border-right: 2.5px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform .25s var(--spring);
+}
+details.more[open] > summary::before { transform: rotate(-135deg) translateY(-2px); }
+
+.prose p { margin: 0 0 14px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.68; }
+.prose p:last-child { margin-bottom: 4px; }
+.prose b { color: var(--ink); font-weight: 600; }
+
+/* ---------- How-to ---------- */
+
+.how { scroll-margin-top: 16px; }
+.how-sub { margin-top: 8px; color: var(--ink-soft); font-size: 16px; }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 4px;
+  background: var(--paper);
+  padding: 6px;
+  border-radius: 15px;
+  border: 1px solid var(--hair);
+}
+.tab {
+  flex: 1;
+  font-family: Poppins, Inter, sans-serif;
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 12px 6px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab[aria-selected="true"] {
+  background: var(--panel);
+  color: var(--deep);
+  box-shadow: 0 3px 12px rgba(31,94,138,.14);
+}
+
+.tabpanel { padding-top: 6px; }
+.panel-note { margin-top: 12px; font-size: 15px; color: var(--ink-soft); }
+
+ol.steps { margin: 18px 0 0; padding: 0; list-style: none; counter-reset: s; }
+ol.steps li {
+  counter-increment: s;
+  position: relative;
+  padding: 0 0 18px 46px;
+  font-size: 16.5px;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+ol.steps li::before {
+  content: counter(s);
+  position: absolute;
+  left: 0; top: 1px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--g-sky);
+  color: #fff;
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  display: grid;
+  place-items: center;
+}
+ol.steps li:last-child { padding-bottom: 6px; }
+ol.steps b { color: var(--ink); font-weight: 600; }
+.hint { display: block; margin-top: 4px; font-size: 15px; opacity: .82; }
+
+.done {
+  margin-top: 14px;
+  background: #EAF6EE;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-weight: 600;
+  color: #17604A;
+  font-size: 16px;
+}
+
+/* ---------- Footer ---------- */
+
+.foot {
+  text-align: center;
+  padding: 34px 8px 10px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.foot .ver { margin-top: 10px; font-size: 13px; opacity: .6; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
