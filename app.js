@@ -6,6 +6,7 @@
 const APPS = [
   {
     id: 'daysoutni',
+    short: 'Days Out',
     name: 'Days Out NI',
     accent: '#2F7FB6',
     url: 'https://daysoutni.com',
@@ -24,6 +25,7 @@ const APPS = [
   },
   {
     id: 'fuelfinderni',
+    short: 'FuelFinder',
     name: 'FuelFinder NI',
     accent: '#0D7D5A',
     url: 'https://fuelfinderni.vercel.app',
@@ -41,6 +43,7 @@ const APPS = [
   },
   {
     id: 'happy-weather',
+    short: 'Weather',
     name: 'Happy Weather',
     accent: '#3F9CD6',
     url: 'https://happy-weather-aeonreon.vercel.app',
@@ -58,6 +61,7 @@ const APPS = [
   },
   {
     id: 'conscious-parenting',
+    short: 'Parenting',
     name: 'Conscious Parenting NI',
     accent: '#E09A12',
     url: 'https://new-beginnings-livid.vercel.app',
@@ -99,7 +103,7 @@ function tile(app, i) {
       </details>` : '';
 
   return `
-  <section class="app grad-outline${app.featured ? ' featured' : ''}" style="--accent:${app.accent}">
+  <section id="app-${app.id}" class="app grad-outline${app.featured ? ' featured' : ''}" style="--accent:${app.accent}">
     <div class="app-shot">
       ${hero}
       <img class="app-icon" src="${app.icon}" alt="" width="512" height="512">
@@ -118,6 +122,19 @@ function tile(app, i) {
 }
 
 document.getElementById('app-list').innerHTML = APPS.map(tile).join('');
+
+/* ---------- Quick-pick shelf ----------
+   All four visible without scrolling, App Store style. Tapping one drops you at
+   that app's full card rather than opening it — the card is where the Open and
+   the install buttons live, and a stranger holding the phone shouldn't be
+   thrown straight out of the page by their first tap. */
+
+document.getElementById('shelf').innerHTML = APPS.map(app => `
+  <a class="pick grad-outline" href="#app-${app.id}" style="--accent:${app.accent}">
+    <img src="${app.icon}" alt="" width="512" height="512">
+    <span class="pick-name">${esc(app.short || app.name)}</span>
+    <span class="pick-get">Get</span>
+  </a>`).join('');
 
 /* ---------- Audio: one player at a time ---------- */
 
@@ -197,10 +214,14 @@ showPlatform(saved || guess);
 /* ---------- Smooth jump to the instructions ---------- */
 
 document.addEventListener('click', e => {
-  const a = e.target.closest('a.jump');
+  const a = e.target.closest('a.jump, a.pick');
   if (!a) return;
+  const target = a.classList.contains('pick')
+    ? document.querySelector(a.getAttribute('href'))
+    : document.getElementById('how');
+  if (!target) return;
   e.preventDefault();
-  document.getElementById('how').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 /* ---------- In-app browser warning ----------
