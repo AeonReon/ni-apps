@@ -13,9 +13,11 @@ for turning each one into a real icon on their phone.
 
 ## Design
 
-Days Out NI's palette and type, deliberately — the Days Out headline image is
-the hero, and it doubles as the first featured app, so the page reads as
-Northern Irish before anyone reads a word.
+Days Out NI's palette and type, deliberately. The masthead goes *straight* into
+the Days Out card — there is no intro block, on purpose. Every app carries its
+own hero photo at its own aspect ratio (`heroRatio` in the APPS array), because
+cropping them all to one shape would cut half the landmarks out of the Days Out
+panorama. First body paragraph shows; the rest sit behind the drop-down.
 
 - Sky `#5FB1DD` → `#3F8FCB`, sun `#FFCE3D`, deep `#1F5E8A`
 - Poppins for headings, Inter for body (same pairing as daysoutni.com)
@@ -25,7 +27,9 @@ Northern Irish before anyone reads a word.
 
 1. Add an entry to the `APPS` array at the top of `app.js` (id, name, accent,
    url, icon, line, audio, body paragraphs). Order in the array = order on page.
-2. Drop a 512px icon at `images/icons/<id>.png`.
+2. Drop a 512px icon at `images/icons/<id>.png` and a hero at
+   `images/hero-<id>.jpg` (~1600px wide), then set `heroRatio` to its real
+   `width / height`.
 3. Add the spoken script to `CLIPS` in `scripts/build-audio.py`, then
    `python3 scripts/build-audio.py` (only builds what's missing).
 
@@ -47,9 +51,12 @@ sending the whole script in one request comes back rushed and clipped.
   work."** Facebook, Instagram, Messenger and TikTok open links in their own
   embedded browser, which has no Add to Home Screen. `app.js` sniffs for them
   and shows a warning at the top of the page. Don't remove it.
-- **`height: auto` on `.app-hero` is load-bearing.** The `<img>` height
-  attribute is a presentational hint that otherwise beats `aspect-ratio` and
-  renders the hero 793px tall.
+- **Never put `Icon?` in this repo's `.gitignore`.** `core.ignorecase` is on by
+  default on macOS, so that pattern also matches `images/icons/` and silently
+  drops every app icon from the deploy. This shipped broken once already.
+- **The app icon is absolutely positioned on `.app-shot`, not in the text flow.**
+  It used to be a flex row pulled up with a negative margin, and a title long
+  enough to wrap (Conscious Parenting NI) rode up onto the photo.
 - **Never add a `buildCommand`.** Static PWAs on Vercel get stranded at UNKNOWN.
 - The four app URLs are hardcoded in `app.js`. `new-beginnings.vercel.app` is
   someone else's project — Conscious Parenting NI is at
