@@ -296,6 +296,11 @@ h2 {
   font-size: 15.5px;
   padding: 12px 18px;
   min-height: 48px;
+  width: 100%;
+  /* Long labels wrap; keep the text ranged left off the play dot rather than
+     centring the second line under it. */
+  justify-content: flex-start;
+  text-align: left;
 }
 .btn-listen .dot {
   width: 26px; height: 26px; flex: 0 0 26px;
