@@ -57,6 +57,23 @@ Needs the local `kokoro-tts` service up (PM2, port 8765) and ffmpeg on PATH.
 The script splits each clip per paragraph and welds a short pause between —
 sending the whole script in one request comes back rushed and clipped.
 
+## The contact button
+
+Mail icon on the LEFT of the masthead; share/QR on the right. Both are the same
+40px sun-yellow circle from daysoutni.com.
+
+The address is **hi@daysoutni.com** and it is deliberately absent from
+index.html, app.js and the DOM of a page that has merely loaded. It is held as
+character codes in `MAIL_USER` / `MAIL_HOST` and assembled only when the sheet
+is opened. **Never write it as a literal anywhere in this repo** — that undoes
+the whole point. Source-scraping harvesters get nothing; something that renders
+and taps would still get it, and that is understood. The alias is disposable.
+
+Delivery verified 2026-08-30: sent to hi@ and it arrived in `daysout-mailbox`
+(PM2 `daysout-mailbox`, port 3056, https://mailbox.daysoutni.com) with subject
+and body intact. daysoutni.com runs Cloudflare Email Routing with a catch-all
+into that worker, so any alias on the domain lands there.
+
 ## The share button and QR (qr.js)
 
 Share in the masthead opens a sheet with a QR of this page, the link in text,
